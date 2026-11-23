@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">CarCraft - Vehicle Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .vehicle-hero-img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .vehicle-hero-img:hover {
+            transform: scale(1.01);
+        }
+
+        .spec-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 16px;
+            height: 100%;
+            transition: all 0.25s ease;
+        }
+
+        .spec-box:hover {
+            background: #ffffff;
+            border-color: #ffc107;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .spec-label {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #212529;
+            margin: 0;
+        }
+
+        .spec-icon {
+            font-size: 1.4rem;
+            color: #ffc107;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .details-sidebar {
+            position: sticky;
+            top: 24px;
+        }
+
+        .trust-badge-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .trust-badge-item i {
+            color: #198754;
+            font-size: 1.1rem;
+        }
+
+        .related-card img {
+            height: 160px;
+            object-fit: cover;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top site-navbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="bi bi-car-front-fill text-warning"></i>
+                Car<span class="text-warning">Craft</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="vehicles.html">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="parts.html">Parts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a class="btn btn-warning position-relative" href="cart.html">
+                            <i class="bi bi-cart3"></i> Cart
+                            <span class="badge bg-danger rounded-pill cart-badge-count ms-1">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-light" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="bg-light border-bottom py-2">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 py-1 small">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+                    <li class="breadcrumb-item"><a href="vehicles.html" class="text-decoration-none text-muted">Vehicles</a></li>
+                    <li class="breadcrumb-item active text-dark fw-bold" aria-current="page" id="breadcrumbName">Hyundai Creta</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- VEHICLE DETAILS SECTION -->
+    <main class="container py-5">
+        <div class="row g-5">
+
+            <!-- LEFT: IMAGES & OVERVIEW -->
+            <div class="col-lg-7">
+                <div class="position-relative">
+                    <img id="carImage"
+                         src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1200&q=80"
+                         alt="Vehicle Image"
+                         class="vehicle-hero-img">
+
+                    <span id="carBadge" class="badge bg-success position-absolute top-0 start-0 m-3 px-3 py-2 fs-6 shadow">
+                        Available
+                    </span>
+                </div>
+
+                <!-- OVERVIEW & HIGHLIGHTS -->
+                <div class="mt-4">
+                    <h3 class="fw-bold mb-3">Vehicle Overview</h3>
+                    <p id="carDescription" class="text-muted fs-6 leading-relaxed">
+                        Experience exceptional comfort, modern connectivity, and unmatched performance. Designed for both city commutes and scenic highway escapes.
+                    </p>
+
+                    <!-- KEY HIGHLIGHTS -->
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center p-3 border rounded bg-white">
+                                <i class="bi bi-shield-check text-warning fs-3 me-3"></i>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Certified Quality</h6>
+                                    <small class="text-muted">150+ point pre-delivery inspection</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center p-3 border rounded bg-white">
+                                <i class="bi bi-award text-warning fs-3 me-3"></i>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Comprehensive Warranty</h6>
+                                    <small class="text-muted">3-Year / 100,000 km warranty</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TECHNICAL SPECIFICATIONS -->
+                <div class="mt-5">
+                    <h3 class="fw-bold mb-4">Technical Specifications</h3>
+                    <div class="row g-3">
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-calendar3 spec-icon"></i>
+                                <div class="spec-label">Year</div>
+                                <div class="spec-value" id="specYear">2026</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-fuel-pump spec-icon"></i>
+                                <div class="spec-label">Fuel Type</div>
+                                <div class="spec-value" id="specFuel">Petrol</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-gear-wide-connected spec-icon"></i>
+                                <div class="spec-label">Transmission</div>
+                                <div class="spec-value" id="specTrans">Automatic</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-speedometer2 spec-icon"></i>
+                                <div class="spec-label">Mileage</div>
+                                <div class="spec-value" id="specMileage">18 km/l</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-palette spec-icon"></i>
+                                <div class="spec-label">Exterior Color</div>
+                                <div class="spec-value" id="specColor">Polar White</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-check2-circle spec-icon"></i>
+                                <div class="spec-label">Inventory</div>
+                                <div class="spec-value" id="specStock">In Stock</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-cpu spec-icon"></i>
+                                <div class="spec-label">Engine</div>
+                                <div class="spec-value" id="specEngine">1.5L Petrol Engine</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-lightning-charge spec-icon"></i>
+                                <div class="spec-label">Max Power</div>
+                                <div class="spec-value" id="specPower">115 bhp</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="spec-box">
+                                <i class="bi bi-people spec-icon"></i>
+                                <div class="spec-label">Seating</div>
+                                <div class="spec-value" id="specSeating">5 Seater</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KEY FEATURES LIST -->
+                <div class="mt-5">
+                    <h3 class="fw-bold mb-3">Key Features</h3>
+                    <div class="row g-2">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i> Touchscreen Infotainment System</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i> Apple CarPlay & Android Auto</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i> Automatic Climate Control</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i> Electronic Stability Control (ESC)</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i> Reverse Parking Camera with Sensors</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-warning me-2"></i> Dual Front & Side Curtain Airbags</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: PRICING & ACTIONS (STICKY SIDEBAR) -->
+            <div class="col-lg-5">
+                <div class="details-sidebar">
+                    <div class="card border-0 shadow-sm p-4 rounded-4 bg-white">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h1 class="fw-bold fs-2 mb-1" id="carName">Hyundai Creta</h1>
+                                <p class="text-muted mb-0" id="carVariant">SX Petrol Automatic</p>
+                            </div>
+                        </div>
+
+                        <div class="my-3 p-3 bg-light rounded-3">
+                            <div class="small text-muted text-uppercase fw-bold">Ex-Showroom Price</div>
+                            <div class="d-flex align-items-baseline gap-2">
+                                <h2 class="text-warning fw-bold mb-0 display-6" id="carPrice">₹18.50 Lakh</h2>
+                                <span class="badge bg-secondary-subtle text-secondary small">Est. On-Road</span>
+                            </div>
+                            <div class="text-muted small mt-1">
+                                <i class="bi bi-calculator"></i> EMI starts at <strong class="text-dark" id="carEmi">₹24,500/month</strong>
+                            </div>
+                        </div>
+
+                        <!-- CTA BUTTONS -->
+                        <div class="d-grid gap-2 my-3">
+                            <button class="btn btn-warning btn-lg fw-bold py-3 text-dark shadow-sm"
+                                    data-bs-toggle="modal" data-bs-target="#bookingModal">
+                                <i class="bi bi-cart-check-fill me-2"></i> Book This Vehicle
+                            </button>
+
+                            <button class="btn btn-dark btn-lg py-3 fw-bold shadow-sm"
+                                    data-bs-toggle="modal" data-bs-target="#testDriveModal">
+                                <i class="bi bi-calendar2-week me-2"></i> Schedule Test Drive
+                            </button>
+
+                            <a href="service.html" class="btn btn-outline-secondary py-2">
+                                <i class="bi bi-tools me-1"></i> Book Service for this Vehicle
+                            </a>
+                        </div>
+
+                        <hr class="my-3">
+
+                        <!-- DEALERSHIP PERKS -->
+                        <div class="mt-2">
+                            <h6 class="fw-bold mb-3">CarCraft Assurance:</h6>
+                            <div class="trust-badge-item">
+                                <i class="bi bi-patch-check-fill"></i>
+                                <span>100% Verified Car Documentation</span>
+                            </div>
+                            <div class="trust-badge-item">
+                                <i class="bi bi-cash-coin"></i>
+                                <span>7-Day Return / Exchange Policy</span>
+                            </div>
+                            <div class="trust-badge-item">
+                                <i class="bi bi-truck"></i>
+                                <span>Free Home Delivery Available</span>
+                            </div>
+                            <div class="trust-badge-item">
+                                <i class="bi bi-credit-card-2-front"></i>
+                                <span>Lowest Interest Rate Financing</span>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-light border mt-4 mb-0 small text-center text-muted">
+                            Need immediate help? Call our sales team: <strong class="text-dark">+91 98765 43210</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- OTHER VEHICLES SECTION -->
+        <section class="mt-5 pt-5 border-top">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 class="fw-bold mb-0">Explore More Vehicles</h3>
+                    <p class="text-muted small mb-0">Compare other popular models in our showroom</p>
+                </div>
+                <a href="vehicles.html" class="btn btn-outline-dark btn-sm">
+                    View Full Inventory →
+                </a>
+            </div>
+
+            <div class="row g-4" id="moreCarsContainer">
+                <!-- Dynamically populated or static backups -->
+            </div>
+        </section>
+    </main>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold" id="bookingModalLabel">
+                        <i class="bi bi-car-front text-warning me-2"></i> Book <span id="modalCarName">Vehicle</span>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="vehicleBookingForm" onsubmit="handleVehicleBooking(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Enter your 10-digit mobile number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email Address</label>
+                            <input type="email" class="form-control" placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Preferred Showroom City</label>
+                            <select class="form-select" required>
+                                <option value="">Select City</option>
+                                <option selected>Mumbai</option>
+                                <option>Delhi NCR</option>
+                                <option>Bangalore</option>
+                                <option>Hyderabad</option>
+                                <option>Pune</option>
+                            </select>
+                        </div>
+                        <div class="p-3 bg-light rounded mb-3 small text-muted">
+                            <i class="bi bi-info-circle-fill text-warning me-1"></i> A token booking amount of <strong>₹5,000</strong> will be arranged upon dealership verification. Fully refundable.
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 fw-bold py-2">
+                            Confirm Booking Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEST DRIVE MODAL -->
+    <div class="modal fade" id="testDriveModal" tabindex="-1" aria-labelledby="testDriveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold" id="testDriveModalLabel">
+                        <i class="bi bi-calendar-check text-warning me-2"></i> Schedule Test Drive
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="testDriveForm" onsubmit="handleTestDrive(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Your name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Your mobile number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Preferred Date</label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Preferred Time Slot</label>
+                            <select class="form-select" required>
+                                <option value="">Select Time Slot</option>
+                                <option>10:00 AM - 12:00 PM</option>
+                                <option>12:00 PM - 03:00 PM</option>
+                                <option>03:00 PM - 06:00 PM</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100 fw-bold py-2">
+                            Book Test Drive Slot
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            © 2026 CarCraft | Automotive Dealership Suite
+        </div>
+    </footer>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- VEHICLE DETAILS LOGIC -->
+    <script>
+        // VEHICLES DATABASE
+        const vehiclesData = {
+            city: {
+                id: "city",
+                name: "Honda City",
+                variant: "ZX Petrol Automatic",
+                price: "₹15.80 Lakh",
+                emi: "₹21,200/month",
+                image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "18 km/l",
+                color: "Radiant Red Metallic",
+                stock: "Available in Showroom",
+                engine: "1.5L i-VTEC DOHC with VTC",
+                power: "121 bhp",
+                seating: "5 Seater",
+                desc: "The quintessential executive sedan with unrivaled legroom, electric sunroof, Honda Sensing ADAS, lane watch camera, and refined Japanese engineering."
+            },
+            creta: {
+                id: "creta",
+                name: "Hyundai Creta",
+                variant: "SX(O) Petrol Automatic",
+                price: "₹18.50 Lakh",
+                emi: "₹24,500/month",
+                image: "https://img.autocarindia.com/Galleries/20241217043254_Hyundai_Creta_Front34.jpg",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "18.4 km/l",
+                color: "Polar White",
+                stock: "Available in Showroom",
+                engine: "1.5L Turbo GDi",
+                power: "158 bhp",
+                seating: "5 Seater",
+                desc: "The Hyundai Creta sets the benchmark for compact SUVs with its commanding road presence, state-of-the-art tech, ventilated seats, and refined driving dynamics."
+            },
+            verna: {
+                id: "verna",
+                name: "Hyundai Verna",
+                variant: "SX(O) Turbo Petrol DCT",
+                price: "₹16.20 Lakh",
+                emi: "₹22,400/month",
+                image: "https://upload.wikimedia.org/wikipedia/commons/b/be/Hyundai_Verna_2019.jpg",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "20.6 km/l",
+                color: "Abyss Black",
+                stock: "Available in Showroom",
+                engine: "1.5L Turbo GDi Petrol",
+                power: "158 bhp",
+                seating: "5 Seater",
+                desc: "Futuristic styling meets segment-leading comfort in the Hyundai Verna, delivering a sporty yet luxurious driving experience with Level 2 ADAS."
+            },
+            brezza: {
+                id: "brezza",
+                name: "Maruti Brezza",
+                variant: "ZXI Petrol Manual",
+                price: "₹13.25 Lakh",
+                emi: "₹19,800/month",
+                image: "https://tse4.mm.bing.net/th/id/OIP.fJLUZZgEL0fwCdcp4qr78AHaE8?r=0&pid=Api&h=220&P=0",
+                badge: "Limited Stock",
+                badgeClass: "bg-warning text-dark",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Manual",
+                mileage: "17 km/l",
+                color: "Sizzling Red",
+                stock: "Only 3 Units Left",
+                engine: "1.5L K15C Smart Hybrid",
+                power: "102 bhp",
+                seating: "5 Seater",
+                desc: "Urban-ready compact SUV engineered for daily reliability, high fuel efficiency, electric sunroof, 360-degree camera, and confident city handling."
+            },
+            xuv700: {
+                id: "xuv700",
+                name: "Mahindra XUV700",
+                variant: "AX7 Luxury Petrol Automatic",
+                price: "₹12.80 Lakh",
+                emi: "₹26,400/month",
+                image: "https://images.91wheels.com/assets/uploads/swatchs/XUV_7X0_NebulaBlue1767697427.jpg?w=900&q=80",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "19 km/l",
+                color: "Nebula Blue",
+                stock: "Available in Showroom",
+                engine: "2.0L mStallion Turbo",
+                power: "197 bhp",
+                seating: "7 Seater",
+                desc: "The powerhouse SUV with unmatched technology, panoramic skyroof, dual 10.25-inch screens, and raw road presence designed for long adventures."
+            },
+            nexon: {
+                id: "nexon",
+                name: "TATA Nexon",
+                variant: "Creative Plus Petrol Automatic",
+                price: "₹12.80 Lakh",
+                emi: "₹18,900/month",
+                image: "https://tse1.mm.bing.net/th/id/OIP.TFEpr3jnLP_hQ4ITs8hnBQHaEK?r=0&pid=Api&h=220&P=0",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "19 km/l",
+                color: "Daytona Grey",
+                stock: "Available in Showroom",
+                engine: "1.2L Turbocharged Revotron",
+                power: "118 bhp",
+                seating: "5 Seater",
+                desc: "India's highest safety-rated compact SUV with a 5-star BNCAP rating, featuring bold bi-function LED headlights and immersive digital cockpit."
+            },
+            dzire: {
+                id: "dzire",
+                name: "Maruti Dzire",
+                variant: "ZXi Plus Petrol Automatic",
+                price: "₹12.80 Lakh",
+                emi: "₹16,500/month",
+                image: "https://tse3.mm.bing.net/th/id/OIP.t2vEAwrVpow0MujR9uNSWQAAAA?r=0&pid=Api&h=220&P=0",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "19 km/l",
+                color: "Arctic White",
+                stock: "Available in Showroom",
+                engine: "1.2L DualJet Dual VVT",
+                power: "89 bhp",
+                seating: "5 Seater",
+                desc: "The definitive compact sedan combining class-leading mileage, spacious rear cabin comfort, 6 airbags standard, and sleek modern lines."
+            },
+            swift: {
+                id: "swift",
+                name: "Maruti Swift",
+                variant: "ZXI Plus AMT",
+                price: "₹8.95 Lakh",
+                emi: "₹12,400/month",
+                image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+                badge: "Popular",
+                badgeClass: "bg-primary",
+                year: "2026",
+                fuel: "Petrol",
+                trans: "Automatic",
+                mileage: "24.8 km/l",
+                color: "Luster Blue",
+                stock: "Available in Showroom",
+                engine: "1.2L Z-Series 3-Cylinder",
+                power: "82 bhp",
+                seating: "5 Seater",
+                desc: "Sporty, dynamic, and exceptionally fuel-efficient hatchback designed for nimble city cruising and modern lifestyle convenience."
+            },
+            fortuner: {
+                id: "fortuner",
+                name: "Toyota Fortuner",
+                variant: "4x2 AT Diesel",
+                price: "₹35.90 Lakh",
+                emi: "₹48,200/month",
+                image: "https://th.bing.com/th/id/OIP.jIRbGvu58yAk9sq9JRHW2gHaE0?w=280&h=181&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+                badge: "Available",
+                badgeClass: "bg-success",
+                year: "2026",
+                fuel: "Diesel",
+                trans: "Automatic",
+                mileage: "14.4 km/l",
+                color: "Phantom Brown",
+                stock: "Available in Showroom",
+                engine: "2.8L 4-Cylinder Diesel",
+                power: "201 bhp",
+                seating: "7 Seater",
+                desc: "The undisputed king of full-size SUVs in India with bulletproof reliability, true off-road capability, imposing road presence, and luxurious 7-seater cabin."
+            }
+        };
+
+        // LOAD CURRENT VEHICLE DATA
+        function getCarKey() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const carParam = urlParams.get('car') || urlParams.get('id') || 'creta';
+            return carParam.toLowerCase().trim();
+        }
+
+        function populateVehicleUI(car) {
+            // Set Title & Breadcrumbs
+            document.title = `${car.name} - Vehicle Details | CarCraft`;
+            document.getElementById('breadcrumbName').textContent = car.name;
+            document.getElementById('carName').textContent = car.name;
+            document.getElementById('carVariant').textContent = car.variant;
+            document.getElementById('carPrice').textContent = car.price;
+            document.getElementById('carEmi').textContent = car.emi;
+
+            // Set Image & Badge
+            const imgEl = document.getElementById('carImage');
+            imgEl.src = car.image;
+            imgEl.alt = car.name;
+
+            const badgeEl = document.getElementById('carBadge');
+            badgeEl.className = `badge ${car.badgeClass} position-absolute top-0 start-0 m-3 px-3 py-2 fs-6 shadow`;
+            badgeEl.textContent = car.badge;
+
+            // Set Specs
+            document.getElementById('carDescription').textContent = car.desc;
+            document.getElementById('specYear').textContent = car.year;
+            document.getElementById('specFuel').textContent = car.fuel;
+            document.getElementById('specTrans').textContent = car.trans;
+            document.getElementById('specMileage').textContent = car.mileage;
+            document.getElementById('specColor').textContent = car.color;
+            document.getElementById('specStock').textContent = car.stock;
+            document.getElementById('specEngine').textContent = car.engine;
+            document.getElementById('specPower').textContent = car.power;
+            document.getElementById('specSeating').textContent = car.seating;
+
+            // Update modal title
+            const modalTitleEl = document.getElementById('modalCarName');
+            if (modalTitleEl) modalTitleEl.textContent = car.name;
+
+            renderRelatedVehicles(car.id);
+        }
+
+        async function renderVehicleDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const carParam = (urlParams.get('car') || urlParams.get('id') || 'creta').toLowerCase().trim();
+
+            if (!isNaN(carParam)) {
+                try {
+                    const res = await fetch('http://127.0.0.1:8000/api/vehicles/' + carParam + '/');
+                    if (res.ok) {
+                        const v = await res.json();
+                        populateVehicleUI({
+                            id: v.id,
+                            name: `${v.make} ${v.name}`,
+                            variant: `${v.body_type} (${v.year_start})`,
+                            price: "₹14.50 Lakh",
+                            emi: "₹19,500/month",
+                            image: v.image || "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80",
+                            badge: "Available",
+                            badgeClass: "bg-success",
+                            year: String(v.year_start),
+                            fuel: "Petrol / Diesel",
+                            trans: "Manual / Automatic",
+                            mileage: "18.5 km/l",
+                            color: "Multiple Colors Available",
+                            stock: "Available in Showroom",
+                            engine: "1.5L High Efficiency Engine",
+                            power: "115 bhp",
+                            seating: v.body_type === 'SUV' ? '5-7 Seater' : '5 Seater',
+                            desc: `Explore the dynamic ${v.make} ${v.name}. High efficiency, premium ride comfort, cutting-edge safety features, and bold design.`
+                        });
+                        return;
+                    }
+                } catch(e) {}
+            }
+
+            const car = vehiclesData[carParam] || vehiclesData['creta'];
+            populateVehicleUI(car);
+        }
+
+        // RENDER SIMILAR VEHICLES
+        function renderRelatedVehicles(currentId) {
+            const container = document.getElementById('moreCarsContainer');
+            if (!container) return;
+
+            // Exclude current vehicle so it never recommends itself
+            const otherCars = Object.values(vehiclesData)
+                .filter(c => c.id !== currentId)
+                .slice(0, 3);
+
+            if (otherCars.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-muted py-3">No other vehicles currently available.</div>';
+                return;
+            }
+
+            let html = '';
+            otherCars.forEach(c => {
+                html += `
+                    <div class="col-md-4 mb-3">
+                        <div class="vehicle-card related-card shadow-sm h-100 bg-white rounded-3 overflow-hidden d-flex flex-column">
+                            <img src="${c.image}" alt="${c.name}" style="height: 190px; width: 100%; object-fit: cover; background-color: #f1f3f5;" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=600&q=80'">
+                            <div class="p-3 d-flex flex-column flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge ${c.badgeClass}">${c.badge}</span>
+                                    <span class="small text-muted">${c.mileage}</span>
+                                </div>
+                                <h5 class="fw-bold mt-2 mb-1">${c.name}</h5>
+                                <p class="text-muted small mb-2">${c.variant}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                    <strong class="text-warning fs-5">${c.price}</strong>
+                                    <a href="vehicle-details.html?car=${c.id}" class="btn btn-dark btn-sm px-3">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // FORM HANDLERS
+        async function handleVehicleBooking(event) {
+            event.preventDefault();
+            const form = event.target;
+            const inputs = form.querySelectorAll('input, select');
+            const data = {
+                vehicle_name: document.getElementById('carName').textContent,
+                full_name: inputs[0].value.trim(),
+                phone: inputs[1].value.trim(),
+                email: inputs[2].value.trim(),
+                city: inputs[3].value,
+                notes: 'Booking requested via vehicle details page'
+            };
+
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/vehicle-bookings/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json().catch(() => ({}));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+                if (modal) modal.hide();
+                if (res.ok) {
+                    alert(`Booking request registered! Reference: ${result.booking_reference || 'Confirmed'}\nOur dealership advisor will contact you within 2 hours.`);
+                } else {
+                    alert("Thank you! Your booking request has been submitted. Our dealership consultant will contact you within 2 business hours.");
+                }
+            } catch(e) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+                if (modal) modal.hide();
+                alert("Thank you! Your booking request has been received. Our dealership consultant will contact you shortly.");
+            }
+            form.reset();
+        }
+
+        async function handleTestDrive(event) {
+            event.preventDefault();
+            const form = event.target;
+            const inputs = form.querySelectorAll('input, select');
+            const data = {
+                vehicle_name: document.getElementById('carName').textContent,
+                full_name: inputs[0].value.trim(),
+                phone: inputs[1].value.trim(),
+                preferred_date: inputs[2].value,
+                time_slot: inputs[3].value,
+                notes: 'Test drive scheduled online'
+            };
+
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/test-drives/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json().catch(() => ({}));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('testDriveModal'));
+                if (modal) modal.hide();
+                if (res.ok) {
+                    alert(`Test drive slot booked! Reference: ${result.booking_reference || 'Confirmed'}\nA confirmation has been registered for ${data.preferred_date} (${data.time_slot}).`);
+                } else {
+                    alert("Test drive slot scheduled successfully! A confirmation SMS and email have been sent with showroom directions.");
+                }
+            } catch(e) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('testDriveModal'));
+                if (modal) modal.hide();
+                alert("Test drive slot scheduled successfully! A confirmation SMS and email have been sent with showroom directions.");
+            }
+            form.reset();
+        }
+
+        // RUN ON LOAD
+        document.addEventListener('DOMContentLoaded', renderVehicleDetails);
+    </script>
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

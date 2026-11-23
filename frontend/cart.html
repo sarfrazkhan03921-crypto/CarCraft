@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarCraft - Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- STABLE NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top site-navbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <i class="bi bi-car-front-fill text-warning"></i>
+                Car<span class="text-warning">Craft</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vehicles.html">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="parts.html">Parts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="service.html">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a class="btn btn-warning position-relative active fw-bold" href="cart.html">
+                            <i class="bi bi-cart3"></i> Cart
+                            <span class="badge bg-danger rounded-pill cart-badge-count ms-1">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-light" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CART CONTAINER -->
+    <div class="container py-5">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-3 border-bottom">
+            <div>
+                <h1 class="fw-bold mb-1">
+                    <i class="bi bi-cart-check text-warning me-2"></i>Shopping Cart
+                </h1>
+                <p class="text-muted mb-0">Review items, adjust quantities, and checkout smoothly.</p>
+            </div>
+            <div class="mt-3 mt-md-0 d-flex gap-2">
+                <a href="parts.html" class="btn btn-outline-dark">
+                    <i class="bi bi-arrow-left"></i> Add More Parts
+                </a>
+                <button onclick="clearCart()" class="btn btn-outline-danger" id="clearCartBtn">
+                    <i class="bi bi-trash3"></i> Clear Cart
+                </button>
+            </div>
+        </div>
+
+        <!-- ACTIVE CART ROW -->
+        <div class="row g-4" id="cartContentRow">
+            <!-- Products List -->
+            <div class="col-lg-8" id="cartItemsContainer">
+                <!-- Dynamically populated by JS renderCartPage() -->
+            </div>
+
+            <!-- Order Summary Card -->
+            <div class="col-lg-4" id="orderSummaryContainer">
+                <div class="card shadow-sm p-4 sticky-top" style="top: 85px; z-index: 10; border-radius: 12px;">
+                    <h4 class="fw-bold mb-3">Order Summary</h4>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Total Quantity</span>
+                        <strong id="summaryItemCount">0 items</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Subtotal</span>
+                        <strong id="summarySubtotal">₹0</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Delivery Charges</span>
+                        <strong id="summaryDelivery" class="text-success">FREE</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2" id="discountRow" style="display: none !important;">
+                        <span class="text-success">Discount (<span id="discountCodeText"></span>)</span>
+                        <strong id="summaryDiscount" class="text-success">-₹0</strong>
+                    </div>
+
+                    <hr>
+
+                    <!-- Promo Code Field -->
+                    <label class="form-label small fw-bold text-muted">Have a Coupon Code?</label>
+                    <div class="input-group mb-2">
+                        <input type="text" id="couponInput" class="form-control" placeholder="Try CARCRAFT10">
+                        <button class="btn btn-dark" type="button" onclick="applyPromoCode()">Apply</button>
+                    </div>
+                    <div id="couponMessage" class="small mb-3"></div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span class="fs-5 fw-bold">Total Payable</span>
+                        <span class="fs-4 fw-bold text-dark" id="summaryTotal">₹0</span>
+                    </div>
+
+                    <button class="btn btn-warning btn-lg w-100 fw-bold shadow-sm" onclick="openCheckoutModal()">
+                        Proceed to Checkout <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                    <div class="mt-3 text-center small text-muted">
+                        <i class="bi bi-shield-lock-fill text-success me-1"></i> Fast & Secure Automotive Fulfillment
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EMPTY CART VIEW -->
+        <div id="emptyCartView" class="text-center py-5 d-none">
+            <div class="p-5 bg-light rounded-4 shadow-sm border mx-auto" style="max-width: 600px;">
+                <div class="mb-3">
+                    <i class="bi bi-cart-x text-warning" style="font-size: 4.5rem;"></i>
+                </div>
+                <h3 class="fw-bold mb-2">Your Shopping Cart is Empty</h3>
+                <p class="text-muted mb-4">
+                    You don't have any automotive parts or accessories in your cart right now. Browse our store to find high-performance parts for your car!
+                </p>
+                <a href="parts.html" class="btn btn-warning btn-lg px-4 fw-bold shadow-sm">
+                    <i class="bi bi-bag-plus me-1"></i> Browse Parts & Accessories
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold" id="checkoutModalLabel">
+                        <i class="bi bi-bag-check-fill text-warning me-2"></i>Complete Your Order
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" class="form-control" required placeholder="e.g. Rahul Sharma" id="orderCustomerName">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Phone Number</label>
+                            <input type="tel" class="form-control" required placeholder="e.g. +91 98765 43210" id="orderCustomerPhone">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Delivery Address</label>
+                            <textarea class="form-control" rows="2" required placeholder="Flat/House No, Area, City, Pin Code" id="orderCustomerAddress"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Payment Method</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="payCOD" checked>
+                                <label class="form-check-label" for="payCOD">
+                                    Cash on Delivery (COD)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="payUPI">
+                                <label class="form-check-label" for="payUPI">
+                                    UPI / Net Banking / Card
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-light rounded mb-3 border">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Total Payable:</span>
+                                <strong class="fs-4 text-dark" id="modalPayableTotal">₹0</strong>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 py-3 fw-bold fs-5 shadow-sm">
+                            <i class="bi bi-check2-circle me-1"></i> Confirm & Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER CONFIRMATION MODAL -->
+    <div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4 shadow">
+                <div class="modal-body">
+                    <div class="text-success mb-3">
+                        <i class="bi bi-check-circle-fill" style="font-size: 4rem;"></i>
+                    </div>
+                    <h3 class="fw-bold mb-2">Order Confirmed!</h3>
+                    <p class="text-muted mb-3" id="orderSuccessDetails">
+                        Your order has been placed successfully.
+                    </p>
+                    <div class="alert alert-warning py-2 mb-4">
+                        <strong>Order Tracking ID: <span id="confirmedOrderId">#CC-84920</span></strong>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="parts.html" class="btn btn-warning fw-bold py-2">Continue Shopping</a>
+                        <a href="index.html" class="btn btn-outline-dark py-2">Return to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center text-secondary small">
+            © 2026 CarCraft. All Rights Reserved. Complete Automotive Solution.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

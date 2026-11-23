@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CarCraft - Service</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- STABLE NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top site-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="index.html">
+            <i class="bi bi-car-front-fill text-warning"></i>
+            Car<span class="text-warning">Craft</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="vehicles.html">Vehicles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="parts.html">Parts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="service.html">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">Dashboard</a>
+                </li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-warning position-relative" href="cart.html">
+                        <i class="bi bi-cart3"></i> Cart
+                        <span class="badge bg-danger rounded-pill cart-badge-count ms-1">0</span>
+                    </a>
+                </li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-outline-light" href="login.html">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<section class="service-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+
+            <div class="col-lg-6">
+
+                <span class="text-warning fw-bold">
+                    SERVICE CENTER
+                </span>
+
+                <h1 class="display-5 fw-bold mt-3">
+
+                    Professional Vehicle
+                    <span class="text-warning">
+                        Service
+                    </span>
+
+                </h1>
+
+                <p class="text-light">
+
+                    Book your vehicle service online
+                    and choose a convenient date and time.
+
+                </p>
+
+
+                <div class="mt-4">
+
+                    <p>
+                        <i class="bi bi-check-circle-fill text-warning"></i>
+                        General Service
+                    </p>
+
+                    <p>
+                        <i class="bi bi-check-circle-fill text-warning"></i>
+                        Oil Change
+                    </p>
+
+                    <p>
+                        <i class="bi bi-check-circle-fill text-warning"></i>
+                        Brake Service
+                    </p>
+
+                    <p>
+                        <i class="bi bi-check-circle-fill text-warning"></i>
+                        AC Service
+                    </p>
+
+                    <p>
+                        <i class="bi bi-check-circle-fill text-warning"></i>
+                        Wheel Alignment
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="booking-card">
+
+                    <h3>
+                        Book Service
+                    </h3>
+
+                    <p>
+                        Fill in your vehicle details.
+                    </p>
+
+
+                    <div id="serviceBookingSuccess" class="alert alert-success d-none mb-3"></div>
+
+                    <form id="serviceBookingForm" onsubmit="bookService(event)">
+
+                        <label for="vehicleInfo">
+                            Vehicle Model & Trim
+                        </label>
+                        <select id="vehicleInfo" name="vehicle_info" class="form-select mb-3" required>
+                            <option value="">Select Vehicle</option>
+                            <option value="Hyundai Creta SX">Hyundai Creta SX</option>
+                            <option value="Tata Nexon XZ+">Tata Nexon XZ+</option>
+                            <option value="Toyota Fortuner 4x4">Toyota Fortuner 4x4</option>
+                            <option value="Maruti Swift ZXi">Maruti Swift ZXi</option>
+                            <option value="Honda City ZX">Honda City ZX</option>
+                        </select>
+
+                        <label for="regNumber">
+                            Registration Number
+                        </label>
+                        <input
+                            type="text"
+                            id="regNumber"
+                            name="registration_number"
+                            class="form-control mb-3"
+                            placeholder="e.g. DL01AB1234"
+                            required>
+
+                        <label for="serviceType">
+                            Service Type
+                        </label>
+                        <select id="serviceType" name="service_id" class="form-select mb-3" required>
+                            <option value="">Select Service</option>
+                            <option value="1">Engine Service and Tune-up</option>
+                            <option value="2">Full Service 5000 km</option>
+                            <option value="3">Tyre and Wheel Alignment</option>
+                            <option value="4">Brake Inspection and Service</option>
+                            <option value="5">AC Service and Gas Refill</option>
+                            <option value="6">Car Wash and Detailing</option>
+                        </select>
+
+                        <label for="bookingDate">
+                            Appointment Date
+                        </label>
+                        <input type="date" id="bookingDate" name="booking_date" class="form-control mb-3" required>
+
+                        <label for="timeSlot">
+                            Preferred Time
+                        </label>
+                        <select id="timeSlot" name="time_slot" class="form-select mb-3" required>
+                            <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                            <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                            <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
+                            <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                        </select>
+
+                        <label for="serviceNotes">
+                            Specific Requests / Symptoms (Optional)
+                        </label>
+                        <textarea id="serviceNotes" name="notes" class="form-control mb-3" rows="2" placeholder="Any vibration, noise, or specific requests..."></textarea>
+
+                        <button type="submit" class="btn btn-warning w-100 py-2 fw-bold">
+                            <i class="bi bi-calendar-check me-2"></i>
+                            Confirm Appointment
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-light py-4 border-top border-secondary">
+    <div class="container text-center text-secondary small">
+        © 2026 CarCraft | Complete Automotive Service & Dealership Suite
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
